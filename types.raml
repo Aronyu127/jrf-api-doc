@@ -1,0 +1,125 @@
+Story:
+  properties:
+    identity:
+      type: StoryType
+      year: StoryYear
+      word: StoryWord
+      number: StoryNumber
+    court: Court
+    schedules?: Schedule[]
+    adjudged_on?: date-only
+    pronounced_on?: date-only
+    judges_names?: string[]
+    prosecutor_names?: string[]
+    lawyer_names?: string[]
+    party_names?: string[]
+    verdict?: Verdict
+Court:
+  properties: 
+    name: string
+    code: string
+Verdict:
+  properties: 
+    story: Story
+    court: Court
+    reason: string
+    judges_names?: string[]
+    lawyer_names?: string[]
+    prosecutor_names?: string[]
+    party_names?: string[]
+    related_stories?: string[]
+    published_on: date-only
+    original_url: string
+    body:
+      raw_html_url: string
+      content_url: string
+Schedule:
+  properties:
+    story: Story
+    court: Court
+    branch_name: string
+    branch_judge: string
+    courtroom: string
+    start_on:
+      type: date-only
+      example: 2017-01-16
+    start_at: 
+      type: datetime-only
+      example: 2017-01-16 10:00
+story_type:
+  description: 案件類別
+  type: string
+  example: 刑事
+story_word:
+  description: 案件字別
+  type: string
+  example: 抗
+story_year:
+  description: 案件年份
+  type: number
+  example: 105
+story_number:
+  description: 案件案號
+  type: number
+  example: 537
+court_code:
+  description: 法院代號
+  type: string
+  pattern: \w{3}
+  example: KSH
+story_identity:
+  description: 案件識別碼 {StoryType}-{StoryYear}-{StoryWord}-{StoryNumber}
+  type: string
+  pattern: .*-\d{2,3}-.+-\d+
+  example: 刑事-106-抗-99
+story_query:
+  properties:
+    year: story_year
+    word: story_word
+    number: story_number
+    story_type: story_type
+    lawyer_names_cont: string
+    judges_names_cont: string
+    adjudged_on_gteq: date-only
+    adjudged_on_lteq: date-only
+year:
+  displayName: year
+  type: story_year
+  required: false
+word:
+  displayName: word
+  type: story_word
+  required: false
+number:
+  displayName: number
+  type: story_number
+  required: false
+story_type:
+  displayName: type
+  type: story_type
+  required: false
+lawyer_names_cont:
+  displayName: lawyer_names
+  type: string
+  description: 案件相關律師姓名
+  example: 吳春生
+  required: false
+judges_names_cont:
+  displayName: judges_names
+  type: string
+  description: 案件相關法官姓名
+  example: 黃建榮
+  required: false
+adjudged_on_gteq:
+  displayName: adjudged_on
+  type: string
+  description: 判決日期晚於
+  example: 2009-12-27
+  required: false
+adjudged_on_lteq:
+  displayName: adjudged_on
+  type: string
+  description: 判決日期早於
+  example: 2015-12-27
+  required: false
+
