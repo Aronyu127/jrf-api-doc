@@ -1,13 +1,12 @@
 #%RAML 1.0
-  ---
-  title: Jrf search API
-  baseUri: https://api.jrf.org.tw
-  version: v1
-  documentation:
-   - title: Home
-     content: |
-      API 說明.......
-  types: !include types.raml
+title: Jrf search API
+baseUri: https://api.jrf.org.tw
+version: v1
+documentation:
+ - title: Home
+   content: |
+    API 說明.......
+types: !include types.raml
 
 /{court_code}/{story_identity}:
   description: Retrieve a specific story
@@ -47,7 +46,7 @@
           description: Specify the condition of retrieve stories
           type: story_query
           example:
-            
+
       responses:
         200
           body:
