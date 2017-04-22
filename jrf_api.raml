@@ -1,7 +1,8 @@
 #%RAML 1.0
 title: Jrf search API
 baseUri: https://api.jrf.org.tw
-version: v1
+version: 0.1
+protocols: HTTPS
 documentation:
  - title: Home
    content: |
@@ -16,22 +17,45 @@ types: !include types.raml
     story_identity:
       type: story_identity
   get:
-    body:
-      type: Story
+    responses:
+      200:
+        body:
+          application/json:
+            properties:
+              story: story_show
+      404
+        body:
+          application/json:
+            properties:
+              message: fail_messages
   /verdict:
     get:
       description: Retrieve a specific verdict of story
       responses:
         200:
-      body:
-        type: Verdict
+          body:
+            application/json:
+              properties:
+                verdict: Verdict
+        404
+          body:
+            application/json:
+              properties:
+                message: fail_messages
   /schedules:
     get:
       description: Retrieve a schedules list of story
       responses:
         200:
-      body:
-        type: Schedule[]
+          body:
+            application/json:
+              properties:
+                schedules?: Schedule[]
+        404
+          body:
+            application/json:
+              properties:
+                message: fail_messages
 /search:
   /stories:
     get:
@@ -42,84 +66,36 @@ types: !include types.raml
           type:        integer
           required:    false
           example:     1
-        q:
-          description: Specify the condition of retrieve stories
-          type: story_query
-          example:
-
+        q[story_type]?: story_type
+        q[year]?: story_year
+        q[word]?: story_word
+        q[number]?: story_number
+        q[lawyer_names_cont]?:
+          description: 相關律師姓名包含
+          type: string
+          example: 吳
+        q[judges_names_cont]?:
+          description: 相關法官姓名包含
+          type: string
+          example: 張惠閔
+        q[adjudged_on_gteq]?:
+          description: 判決日期晚於
+          type: string
+          example: 2009-12-01
+        q[adjudged_on_lteq]?:
+          description: 判決日期早於
+          type: string
+          example: 2009-12-31
       responses:
         200
           body:
             application/json:
-              example:
-                {
-                  "pagination": {
-                    "current": 1,
-                    "previous_url": null,
-                    "next_url": "https://api.jrf.org.tw/search/stories?page=2&q%5Badjudge_date_gteq%5D=2009-12-27",
-                    "per_page": 20,
-                    "pages": 2,
-                    "count": 34
-                  },
-                  "stories": [
-                    {
-                      "identity": {
-                        "type": "刑事",
-                        "year": 106,
-                        "word": "抗",
-                        "number": 99
-                      },
-                      "court": {
-                        "name": "臺灣高等法院高雄分院",
-                        "code": "KSH"
-                      },
-                      "adjudged_on": null,
-                      "pronounced_on": null,
-                      "judges_names": [
-                        "黃建榮",
-                        "施柏宏",
-                        "黃宗揚"
-                      ],
-                      "prosecutor_names": [],
-                      "lawyer_names": [
-                        "吳春生",
-                        "林清堯"
-                      ],
-                      "party_names": [
-                        "佟以智"
-                      ],
-                      "detail_link": "https://api.jrf.org.tw/KSH/%E5%88%91%E4%BA%8B-106-%E6%8A%97-99"
-                    },
-                    {
-                      "identity": {
-                        "type": "刑事",
-                        "year": 106,
-                        "word": "上訴",
-                        "number": 126
-                      },
-                      "court": {
-                        "name": "臺灣高等法院高雄分院",
-                        "code": "KSH"
-                      },
-                      "adjudged_on": "2017-04-11",
-                      "pronounced_on": "2017-03-15",
-                      "judges_names": [
-                        "惠光霞",
-                        "李東柏",
-                        "曾永宗"
-                      ],
-                      "prosecutor_names": [
-                        "鍾忠孝"
-                      ],
-                      "lawyer_names": [
-                        "吳春生",
-                        "林清堯"
-                      ],
-                      "party_names": [
-                        "張明華"
-                      ],
-                      "detail_link": "https://api.jrf.org.tw/KSH/%E5%88%91%E4%BA%8B-106-%E4%B8%8A%E8%A8%B4-126"
-                    }
-                  ]
-                  "status": 200
-                }
+              properties:
+                pagination: pagination_response
+                stories?: story_index[]
+                status: 200
+        404
+          body:
+            application/json:
+              properties:
+                message: '尚未輸入查詢條件'
