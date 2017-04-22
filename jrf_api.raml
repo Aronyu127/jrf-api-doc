@@ -13,10 +13,14 @@ types: !include types.raml
   description: Retrieve a specific story
   uriParameters:
     court_code:
-      type: court_code
+      description: 法院代號
+      type: string
+      pattern: \w{3}
       example: TPH
     story_identity:
-      type: story_identity
+      description: 案件識別碼 {story_type}-{story_year}-{story_word}-{story_number}
+      type: string
+      pattern: .*-\d{2,3}-.+-\d+
       example: 民事-105-重上-608
   get:
     responses:
@@ -69,16 +73,20 @@ types: !include types.raml
           required:    false
           example:     1
         q[story_type]?: 
-          type: story_type
+          description: 案件類別
+          type: string
           example: 民事
         q[year]?:
-          type: story_year
+          description: 案件年份 民國年
+          type: number
           example: 105
         q[word]?:
-          type: story_word
+          description: 案件字別
+          type: string
           example: 重上
         q[number]?:
-          type: story_number
+          description: 案件案號
+          type: number
           example: 608
         q[lawyer_names_cont]?:
           description: 相關律師姓名包含
