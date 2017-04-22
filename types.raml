@@ -1,11 +1,11 @@
 story_type:
   description: 案件類別
   type: string
-  example: 刑事
+  example: 民事
 story_word:
   description: 案件字別
   type: string
-  example: 抗
+  example: 重上
 story_year:
   description: 案件年份 民國年
   type: number
@@ -13,23 +13,23 @@ story_year:
 story_number:
   description: 案件案號
   type: number
-  example: 537
+  example: 608
 court_code:
   description: 法院代號
   type: string
   pattern: \w{3}
-  example: KSH
+  example: TPH
 story_identity:
   description: 案件識別碼 {story_type}-{story_year}-{story_word}-{story_number}
   type: string
   pattern: .*-\d{2,3}-.+-\d+
-  example: 刑事-106-抗-99
+  example: 民事-105-重上-608
 identity:
   properties:
     type:
       description: 案件類別
       type: string
-      example: 刑事
+      example: 民事
     year:
       description: 案件年份 民國年
       type: number
@@ -37,11 +37,11 @@ identity:
     word:
       description: 案件字別
       type: string
-      example: 抗
+      example: 重上
     number:
       description: 案件案號
       type: number
-      example: 537
+      example: 608
 fail_messages:
   type: string
   enum: ['該法院代號不存在', '案件不存在', '此案件尚未有判決書']

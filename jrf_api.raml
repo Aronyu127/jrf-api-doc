@@ -14,8 +14,10 @@ types: !include types.raml
   uriParameters:
     court_code:
       type: court_code
+      example: TPH
     story_identity:
       type: story_identity
+      example: 民事-105-重上-608
   get:
     responses:
       200:
@@ -66,18 +68,26 @@ types: !include types.raml
           type:        integer
           required:    false
           example:     1
-        q[story_type]?: story_type
-        q[year]?: story_year
-        q[word]?: story_word
-        q[number]?: story_number
+        q[story_type]?: 
+          type: story_type
+          example: 民事
+        q[year]?:
+          type: story_year
+          example: 重上
+        q[word]?:
+          type: story_word
+          example: 105
+        q[number]?:
+          type: story_number
+          example: 608
         q[lawyer_names_cont]?:
           description: 相關律師姓名包含
           type: string
-          example: 吳
+          example: 謝
         q[judges_names_cont]?:
           description: 相關法官姓名包含
           type: string
-          example: 張惠閔
+          example: 張靜
         q[adjudged_on_gteq]?:
           description: 判決日期晚於
           type: string
@@ -85,7 +95,7 @@ types: !include types.raml
         q[adjudged_on_lteq]?:
           description: 判決日期早於
           type: string
-          example: 2009-12-31
+          example: 2017-04-20
       responses:
         200:
           body:
