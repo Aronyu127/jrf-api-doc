@@ -23,7 +23,7 @@ types: !include types.raml
           application/json:
             properties:
               story: story_show
-      404
+      404:
         body:
           application/json:
             properties:
@@ -37,7 +37,7 @@ types: !include types.raml
             application/json:
               properties:
                 verdict: Verdict
-        404
+        404:
           body:
             application/json:
               properties:
@@ -51,7 +51,7 @@ types: !include types.raml
             application/json:
               properties:
                 schedules?: Schedule[]
-        404
+        404:
           body:
             application/json:
               properties:
@@ -87,14 +87,14 @@ types: !include types.raml
           type: string
           example: 2009-12-31
       responses:
-        200
+        200:
           body:
             application/json:
               properties:
                 pagination: pagination_response
                 stories?: story_index[]
                 status: 200
-        404
+        404:
           body:
             application/json:
               properties:
