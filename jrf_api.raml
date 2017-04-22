@@ -93,9 +93,11 @@ types: !include types.raml
               properties:
                 pagination: pagination_response
                 stories?: story_index[]
-                status: 200
         404:
           body:
             application/json:
               properties:
-                message: '尚未輸入查詢條件'
+                message:
+                  description: 錯誤訊息
+                  type: string
+                  example: '尚未輸入查詢條件'
